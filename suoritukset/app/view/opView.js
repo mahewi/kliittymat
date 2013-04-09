@@ -1,4 +1,4 @@
-Ext.define('Ohjelmointityö.view.opView',{
+Ext.define('Suoritukset.view.opView', {
 		extend: 'Ext.Container',
 		xtype: 'opview',
 		requires: ['Ext.util.DelayedTask','Ext.Panel','Ext.form.*','Ext.field.*'],
@@ -49,9 +49,13 @@ Ext.define('Ohjelmointityö.view.opView',{
 										drag: function(){
 											var slider = Ext.getCmp('opSlider');
 											var values = slider.getValues();
-											Ext.getCmp('A').setValue(values[0]);
-											Ext.getCmp('B').setValue(values[1]);
-											
+											if(values[0]>values[1]){
+												Ext.getCmp('A').setValue(values[1]);
+												Ext.getCmp('B').setValue(values[1]);
+											}else{
+												Ext.getCmp('A').setValue(values[0]);
+												Ext.getCmp('B').setValue(values[1]);
+											}
 										}
 									}
 								},
@@ -186,5 +190,10 @@ Ext.define('Ohjelmointityö.view.opView',{
 });
 
 var task = Ext.create('Ext.util.DelayedTask', function(){
+	var min = Ext.getCmp('A');
+	var max = Ext.getCmp('B');
+	if(max<min){
+		Ext.getCmp('opSlider').setValues();
+	}
 	Ext.getCmp('opSlider').setValues([Ext.getCmp('A').getValue(),Ext.getCmp('B').getValue()]);
 });

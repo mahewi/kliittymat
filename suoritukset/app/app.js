@@ -1,11 +1,11 @@
 Ext.application({
-	name: 'Ohjelmointityö',
+	name: 'Suoritukset',
 	requires: [],
-	views: ['Ohjelmointityö.view.Main','Ohjelmointityö.view.opView'],
+	views: ['Suoritukset.view.Main', 'Suoritukset.view.opView'],
 	
 	launch: function(){
-		 
-		Ext.Viewport.add({xclass:'Ohjelmointityö.view.Main'});
+
+	    Ext.Viewport.add({ xclass: 'Suoritukset.view.Main' });
 
 	}
 	
