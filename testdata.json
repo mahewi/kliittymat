@@ -1,0 +1,22 @@
+{
+	students:[
+		{1,"2006S","Janis Petke",20,"DITY2","DEIT"},
+		{1,"2006S","Matti Nykänen",20,"DITY2","DEIT"}
+	],
+	courses:[
+		{id:1,code:"DTEK1014",name:"Työmarkkinatietous",points:5,students:[
+			{sid:1,date:"20.5.2012"},{sid:2,date:"24.5.2012"},{sid:3,date:"24.5.2012"}
+		]},
+		{id:1,code:"DTEK1014",name:"Työmarkkinatietous",points:5,students:[
+			{sid:1,date:"20.5.2012"},{sid:2,date:"24.5.2012"},{sid:3,date:"24.5.2012"}
+		]}
+	],
+	degrees:[
+		{id:1,name:"KANDI1":courses[
+			{cid:1},{cid:2},{cid:3}
+		]},
+		{id:2,name:"KANDI2":courses[
+			{cid:2},{cid:4}
+		]}
+	]
+}
