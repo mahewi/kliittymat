@@ -1,4 +1,4 @@
-Ext.define('Ohjelmointityö.view.tView',{
+Ext.define('Suoritukset.view.tView',{
 	extend: 'Ext.TabPanel',
 	xtype: 'tview',
 	
