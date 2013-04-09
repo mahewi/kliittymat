@@ -1,0 +1,8 @@
+aloitusvuosi <- valintatyökalu
+suoritetut op-pisteet <- slider
+yksittäisen opiskelijan etsintä - nimi - opno 
+koulutusohjelmakohtainen
+pääainekohtainen
+
+
+style: 'background-color: #99CC00; color: white;', <-- vihree
