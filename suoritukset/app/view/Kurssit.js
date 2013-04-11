@@ -5,10 +5,11 @@ Ext.define('Suoritukset.view.Kurssit', {
         id: 'kurssilista',
         title: 'Suoritukset',
         setStyleHtmlContent: true,
-        itemTpl: '<tpl for="."><div class="Kurssi">' +
-  '  {name}, <strong>{code}</strong>' +
-  '  <tpl for="students"><br /><small>{sid}</small></tpl>' +
-  '</div></tpl>',
+        itemTpl: 
+          '<tpl for="."><div class="Kurssi">' +
+          '  {name}, <strong>{code}</strong>' +
+          '  <tpl for="students"><br /><small>{sid}</small></tpl>' +
+          '</div></tpl>',
         store: 'kurssitstore'
     }
 
