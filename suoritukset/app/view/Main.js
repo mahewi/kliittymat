@@ -1,10 +1,10 @@
-//suodatuspanel omaan tiedostoon
 Ext.define('Suoritukset.view.Main', {
   extend: 'Ext.navigation.View',
   requires: ['Suoritukset.view.Kurssit','Suoritukset.store.Opiskelijat'],
   config: {
     fullscreen: true,
     setStyleHtmlContent: true,
+    ui: 'dark',
     id: 'naviview',
     style: 'background-color: black;',
     defaultBackButtonText: 'Etusivu',
@@ -51,7 +51,7 @@ Ext.define('Suoritukset.view.Main', {
           xtype: 'button',
           id: 'suodatusButton',
           text: 'Suodatus',
-          ui: 'round',
+          ui: 'action-round',
           style: 'color: white',
           iconCls: 'arrow_down',
           iconMask: true,
@@ -75,23 +75,10 @@ Ext.define('Suoritukset.view.Main', {
   }
 });
 
-var kurssiPanel = Ext.create('Ext.Panel',{
-  title: 'Kurssit',
-  items:[
-    {
-      fullscreen: true,
-      itemTpl: '{code}',
-      data: [
-        {code: "DTEK1014"},
-        {code: "TKO1010"}
-      ]
-    }
-  ]
-});
-
 var suodatusPanel = Ext.create('Ext.Panel', {
   id: 'lomake',
   title: 'Suodatus',
+  ui: 'neutral',
   hidden: true,
   flex: 1,
   items: [
