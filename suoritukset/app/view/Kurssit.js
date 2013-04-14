@@ -32,7 +32,8 @@ Ext.define('Suoritukset.view.Kurssit', {
           '</div></tpl>',
         store: 'kurssitstore',
         listeners:{
-        	initialize: suodataLista
+        	// Ei toimi. Vielä...
+            //initialize: suodataLista
         }
     }
 
