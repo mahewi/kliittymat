@@ -1,96 +1,61 @@
 Ext.define('Suoritukset.view.Kurssit', {
-	extend: 'Ext.dataview.List',
+    extend: 'Ext.dataview.List',
     config: {
-    	items:[
-    		{
-    			xtype: 'titlebar',
-    			docked: 'top',
-    			ui: 'dark',
-    			items:[
-    				{
-    					xtype: 'searchfield',
-    					align: 'right',
-    					placeHolder: '  Etsi...',
-    					listeners:{
-    						clearicontap: onSearchClearIconTap,
-    						keyup: onSearchKeyUp
-    					}
-    				}
-    			]
-    		}
-    	],
-    	ui: 'round',
-    	grouped: true,
+        
+        ui: 'round',
+        grouped: true,
         fullscreen: true,
         id: 'kurssilista',
         title: 'Kurssit',
         setStyleHtmlContent: true,
-        itemTpl: 
+
+        itemTpl:
           '<tpl for="."><div class="Kurssi">' +
-          '  {name}<br /><small>{code}</small>' +
-          '  <tpl for="students"><br /><small>{sid}</small></tpl>' +
+          ' {name}<br /><small>{code}</small><br />' +
           '</div></tpl>',
         store: 'kurssitstore',
-        listeners:{
-        	initialize: suodataLista
+        listeners: {
+           	painted: suodataLista,
+            itemtap: function(record,index){
+            	Ext.Viewport.add({xtype:'kurssiDialog'});
+            }
         }
     }
 
 });
 function suodataLista(){
-	var kStore = Ext.getStore('kurssitstore');
-	var opStore = Ext.getStore('opiskelijatstore');
-	kStore.filter(
-		Ext.create('Ext.util.Filter', {
-			filterFn: function(item){ // FUNKTIO PALAUTTAA ARVON TRUE TAI FALSE!! == true mikäli filtteröidystä opStoresta löytyy kStoren yksikin opiskelija.
-				var suoritukset = item.students();
-				for(var i = 0 ; i<suoritukset.getCount();i++){
-					for(var j = 0 ; j<opStore.getCount();j++){
-						if(opStore.getData()[j].get('id') == suoritukset.getData()[i].get('sid')){
-							return true;
-						}
-					}
-				}
+	var kurssikoodilista = haeSuoritukset();
+	Ext.getStore('kurssitstore').filter(
+		Ext.create('Ext.util.Filter',{
+			filterFn: function(record){
+				if(kurssikoodilista.indexOf(record.get('code')) == -1 ){
+        			return false;
+        		}else{
+        			return true;
+        		}
 			}
 		})
-	);
-		
+	);	
 };
-function onSearchKeyUp(field){
-    var value = field.getValue(),
-    	store = Ext.getStore('kurssitstore');
-    store.clearFilter();
-    	
-    if(value){
-    	var searches = value.split(' '),
-    		regexps = [],
-    		i;
-    			
-    	for(i = 0; i<searches.length;i++){
-    		if(!searches[i])continue;
-    			
-    		regexps.push(new RegExp(searches[i],'i'));
-    			
-    	}
-    		
-    	store.filter(function(record){
-    		var matched = [];
-    		for(i = 0; i<regexps.length;i++){
-    			var search = regexps[i],
-    				didMatch = record.get('name').match(search)||record.get('code').match(search);
-    			matched.push(didMatch);
-    		}
-    		if(regexps.length>1&&matched.indexOf(false)!=-1){
-    			return false;
-    		}else{
-    			return matched[0];
-    		}
-    			
-    	})
-    }
+function haeSuoritukset(){
     
-};
-function onSearchClearIconTap(){
-    Ext.getStore('kurssitstore').clearFilter();
-    //Ext.getStore('kurssitstore').suodataLista();
-};
+    var opStore = Ext.getStore('opiskelijatstore');
+    var suoritusStore = Ext.getStore('suoritusstore');
+    var kurssikoodilista = new Array();
+
+    for (var i=0 ; i < opStore.getCount(); i++) {
+        var opiskelijaId = opStore.getAt(i).get('id');
+        for (var j=0 ; j < suoritusStore.getCount(); j++) {
+             var sid = suoritusStore.getAt(j).get('sid');
+             if (opiskelijaId == sid) {
+                if (kurssikoodilista.indexOf(suoritusStore.getAt(j).get('code')) == -1) {
+                    kurssikoodilista.push(suoritusStore.getAt(j).get('code'));
+                }
+             }
+        }
+    }
+
+ 
+    return kurssikoodilista;
+}  
+

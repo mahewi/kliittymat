@@ -3,9 +3,11 @@ Ext.define("Suoritukset.store.Tutkinnot", {
   config: {
     model: 'Suoritukset.model.Tutkinto',
     autoLoad: true,
+    storeId: 'tutkinnotstore',
+    id: 'tutkinnotstore',
     proxy: {
       type: 'ajax',
-      url: 'courses.json',
+      url: 'degrees.json',
       reader: {
         type: 'json',
         rootProperty: 'degrees'

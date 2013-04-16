@@ -6,6 +6,6 @@ Ext.define("Suoritukset.model.Kurssi", {
       {name: "name", type: "string"},
       {name: "points", type: "int"} 
     ],
-    hasMany: {model: "Suoritukset.model.Suoritus", name: 'students'}
+    hasMany: [{model: 'Suoritukset.model.Suoritus', name: 'students'}]
   }
 });
