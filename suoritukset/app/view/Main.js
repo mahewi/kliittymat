@@ -74,7 +74,6 @@ Ext.define('Suoritukset.view.Main', {
     }
   }
 });
-console.log('jee');
 var suodatusPanel = Ext.create('Ext.Panel', {
   id: 'lomake',
   title: 'Suodatus',
