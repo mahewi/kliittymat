@@ -3,8 +3,8 @@ Ext.define("Suoritukset.model.Suoritus", {
   config: {
     fields: [
       {name: 'sid', type: 'int'},
+      {name: 'code', type: 'string'},
       {name: 'date', type: 'string'}
     ],
-    belongsTo: "Suoritukset.model.Kurssi"
   }
 });
