@@ -96,6 +96,7 @@ function onSearchClearIconTap(){
     //Ext.getStore('kurssitstore').suodataLista();
 };
 // Joo ei mitään hajua onko tämä nyt oikeanlainen, toivottavasti on
+// Käy siis läpi opiskelijat-storea ja jos opiskelijan id löytyy suoritukset storesta niin kurssikoodi lisätään palautettavaan listaan
 function abc_tatu_funktio(){
     
     var opStore = Ext.getStore('opiskelijatstore');
