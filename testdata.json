@@ -1,14 +1,15 @@
 {
 	students:[
-		{1,"2006S","Janis Petke",20,"DITY2","DEIT"},
-		{1,"2006S","Matti Nykänen",20,"DITY2","DEIT"}
+		{id:1,started:"2006S",name:"Janis Petke",points:20,dprogram"DITY2",major:"DEIT"},
+		{id:2,started:"2007S",name:"Matti Nykänen",points:50,dprogram"DITY1",major:"DEIT"}
+		{id:3,started:"2005S",name:"Tarja Halonen",points:40,dprogram"DITY2",major:"DEIT"}
 	],
 	courses:[
 		{id:1,code:"DTEK1014",name:"Työmarkkinatietous",points:5,students:[
-			{sid:1,date:"20.5.2012"},{sid:2,date:"24.5.2012"},{sid:3,date:"24.5.2012"}
+			{sid:1,date:"20.5.2011"},{sid:2,date:"21.2.2012"},{sid:3,date:"24.3.2013"}
 		]},
-		{id:1,code:"DTEK1014",name:"Työmarkkinatietous",points:5,students:[
-			{sid:1,date:"20.5.2012"},{sid:2,date:"24.5.2012"},{sid:3,date:"24.5.2012"}
+		{id:2,code:"TKO1010",name:"Tietorakenteet ja algoritmit",points:4,students:[
+			{sid:1,date:"20.3.2012"},{sid:3,date:"24.5.2012"}
 		]}
 	],
 	degrees:[
