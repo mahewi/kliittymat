@@ -104,8 +104,53 @@ def parseDegreesToJson():
 	with io.open('degrees.json', 'w', encoding="utf-8") as f:
 		f.write(unicode(json.dumps(degreeLista, ensure_ascii=False)))
 
+def parseSuorituksetToJson():
+	f = open('suoritukset.txt')
+	line = 	f.readline()
+
+	suorituslista = []
+
+	while line:
+		s = line
+
+		if line != '\n':
+			opiskelijanumero, opjaksokoodi, kurssinNimi, suoritusPvm, opintopisteLaajuus = s.split(";")
+
+			suoritus = {}
+			suoritus['sid'] = opiskelijanumero.decode('utf-8').strip(' \t\n\r')
+			suoritus['code'] = opjaksokoodi.decode('utf-8').strip(' \t\n\r')
+			suoritus['date'] = suoritusPvm.decode('utf-8').strip(' \t\n\r')
+
+			suorituslista.append(suoritus)
+		line = f.readline()
+	f.close()
+	with io.open('suoritukset.json', 'w', encoding="utf-8") as f:
+		f.write(unicode(json.dumps(suorituslista, ensure_ascii=False)))
+
+def parseKandiKurssitToJson():
+	f = open('kandit.txt')
+	lines = f.readlines()
+	tutkintojenMaara = int(lines[0])
+
+	kandikurssilista = []
+
+	for i in range(4, len(lines)):
+		s = lines[i]
+		kanditunnus, kurssitunnus= s.split(" ")
+		kurssi = {}
+		kurssi['kandiId'] = kanditunnus.decode('utf-8').strip(' \t\n\r')
+		kurssi['kurssitunnus'] = kurssitunnus.decode('utf-8').strip(' \t\n\r')
+
+		kandikurssilista.append(kurssi)
+	f.close()
+
+	with io.open('kandikurssit.json', 'w', encoding="utf-8") as f:
+		f.write(unicode(json.dumps(kandikurssilista, ensure_ascii=False)))
+
 
 parseOpiskelijatToJson()
 parseKurssitToJson()
 parseDegreesToJson()
+parseSuorituksetToJson()
+parseKandiKurssitToJson()
 

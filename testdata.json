@@ -13,7 +13,7 @@
 		]}
 	],
 	degrees:[
-		{id:1,name:"KANDI1":courses[
+		{id:1,name:"KANDI1":courses[	
 			{cid:1},{cid:2},{cid:3}
 		]},
 		{id:2,name:"KANDI2":courses[
