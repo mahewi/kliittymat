@@ -1,42 +1,45 @@
 Ext.define('Suoritukset.view.Kurssit', {
-	extend: 'Ext.dataview.List',
-    config: {
-    	items:[
-    		{
-    			xtype: 'titlebar',
-    			docked: 'top',
-    			ui: 'dark',
-    			items:[
-    				{
-    					xtype: 'searchfield',
-    					align: 'right',
-    					placeHolder: '  Etsi...',
-    					listeners:{
-    						clearicontap: onSearchClearIconTap,
-    						keyup: onSearchKeyUp
-    					}
-    				}
-    			]
-    		}
-    	],
-    	ui: 'round',
-    	grouped: true,
-        fullscreen: true,
-        id: 'kurssilista',
-        title: 'Kurssit',
-        setStyleHtmlContent: true,
-        itemTpl: 
-          '<tpl for="."><div class="Kurssi">' +
-          '  {name}<br /><small>{code}</small>' +
-          '  <tpl for="students"><br /><small>{sid}</small></tpl>' +
-          '</div></tpl>',
-        store: 'kurssitstore',
-        listeners:{
-        	// Ei toimi. Vielä...
-            //initialize: suodataLista
+  extend: 'Ext.dataview.List',
+	require: ['Suoritukset.view.Kurssi'],
+  config: {
+  	items:[
+  		{
+  			xtype: 'titlebar',
+  			docked: 'top',
+  			ui: 'dark',
+  			items:[
+  				{
+  					xtype: 'searchfield',
+  					align: 'right',
+  					placeHolder: '  Etsi...',
+  					listeners:{
+  						clearicontap: onSearchClearIconTap,
+  						keyup: onSearchKeyUp
+  					}
+  				}
+  			]
+  		}
+  	],
+  	ui: 'round',
+  	grouped: true,
+      fullscreen: true,
+      id: 'kurssilista',
+      title: 'Kurssit',
+      setStyleHtmlContent: true,
+      itemTpl: 
+        '<tpl for="."><div class="Kurssi">' +
+        '  {name}<br /><small>{code}</small>' +
+        '  <tpl for="students"><br /><small>{sid}</small></tpl>' +
+        '</div></tpl>',
+      store: 'kurssitstore',
+      listeners:{
+      	itemtap: function(record, index){
+          Ext.Viewport.add({xtype:'kurssiDialog'});
         }
-    }
-
+        // Ei toimi. Vielä...
+          //initialize: suodataLista
+      }
+  }
 });
 function suodataLista(){
 	var kStore = Ext.getStore('kurssitstore');
@@ -95,6 +98,7 @@ function onSearchClearIconTap(){
     Ext.getStore('kurssitstore').clearFilter();
     //Ext.getStore('kurssitstore').suodataLista();
 };
+
 // Joo ei mitään hajua onko tämä nyt oikeanlainen, toivottavasti on
 // Käy siis läpi opiskelijat-storea ja jos opiskelijan id löytyy suoritukset storesta niin kurssikoodi lisätään palautettavaan listaan
 function abc_tatu_funktio(){
