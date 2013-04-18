@@ -130,15 +130,18 @@ function haeOpintopisteet(kandiId, opId) {
 	}
 	else {
 		for (var i = 0; i < kandiKurssitStore.getCount(); i++) {
-			if (kandiId == kandiKurssitStore.getAt(i).get('kid')) {
+			if (kandiId == kandiKurssitStore.getAt(i).get('kandiId')) {
 				for (var j = 0; j < suoritusStore.getCount(); j++) {
-					if (opId == suoritusStore.getAt(j).get('sid') && kandiKurssitStore.getAt(i).get('code') == suoritusStore.getAt(j).get('code')) { 
-						
+					if (opId == suoritusStore.getAt(j).get('sid') && kandiKurssitStore.getAt(i).get('kurssitunnus') == suoritusStore.getAt(j).get('code')) { 
+						for (var z = 0; z < kurssitStore.getCount(); z++) {
+							if (suoritusStore.getAt(j).get('code') == kurssitStore.getAt(z).get('code')) {
+								pisteet = pisteet + kurssitStore.getAt(z).get('points')
+							}
+						}
 					}
 				}
 			}
 		}
 	}
-	
 }
 

@@ -15,6 +15,5 @@ Ext.define('Suoritukset.store.Kandikurssit', {
 				//rootProperty: 'kandikurssit'
 			}
 		}
-		}
-
-	});
+	}
+});
