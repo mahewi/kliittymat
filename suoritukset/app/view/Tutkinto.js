@@ -2,6 +2,7 @@ Ext.define('Suoritukset.view.Tutkinto', {
   extend: 'Ext.Panel',
   id: 'tutkinto',
   alias: 'widget.tutkintoDialog',
+  xtype: 'tutkintoDialog',
   config: {
   	floating: true,
     centered: true,
@@ -9,18 +10,22 @@ Ext.define('Suoritukset.view.Tutkinto', {
     width: 300,
     height: 400,
     styleHtmlContent: true,
-    html: 'Hello! I\'m a PopUp',
+    html: 'PRKL',
     items: [{
       xtype: 'toolbar',
       title: 'PopUp',
-      items: [{
+      items: [
+        {
           xtype: 'spacer'
-        },{
-          text: 'Close',
+        },
+        {
+          iconCls: 'delete',
+          iconMask: true,
           handler: function(){
-            Ext.getCmp('kurssi').destroy();
+            Ext.getCmp('tutkinto').destroy();
           }
-        }],
+        }
+      ],
     }]
   }
 });
