@@ -1,0 +1,70 @@
+<!DOCTYPE>
+
+<html>
+<head>
+    <link href="lib/touch/resources/css/sencha-touch.css" rel="stylesheet" type="text/css" /> 
+    <script src="lib/touch/sencha-touch-all.js"></script>
+    <script>
+        Ext.define("Employee", {
+            extend: "Ext.data.Model",
+            config: {
+                fields : ["name","yearsOfExp"]
+            }
+        });
+        var empStore = Ext.create("Ext.data.Store", {
+            model : "Employee",
+            data: [
+                    { 'name': 'Sam', 'yearsOfExp': 12 },
+                    { 'name': 'Ram', 'yearsOfExp': 7 },
+                    { 'name': 'Kim', 'yearsOfExp': 16 },
+                    { 'name': 'John', 'yearsOfExp': 21 },
+                    { 'name': 'Mary', 'yearsOfExp': 13 }
+                ]
+        });
+        Ext.application({
+            launch: function () {
+                Ext.Viewport.setLayout('fit');
+                Ext.Viewport.add({
+                    xtype: "chart",
+                    store: empStore,
+                    axes: [
+                                {
+                                    type: 'numeric',
+                                    position: 'left',
+                                    title: {
+                                        text: 'Years of Experience',
+                                        fontSize: 15
+                                    },
+                                    fields: 'yearsOfExp'
+                                },
+                                {
+                                    type: 'category',
+                                    position: 'bottom',
+                                    title: {
+                                        text: 'Employee',
+                                        fontSize: 15
+                                    },
+                                    fields: 'name'
+                                }
+                          ],
+                    series: [
+                                {
+                                    type: 'bar',
+                                    xField: 'name',
+                                    yField: 'yearsOfExp',
+                                    style: {
+                                        fill: 'red'
+                                    }
+                                }
+                            ]
+                 });
+                
+            }
+        });
+                
+    </script>
+</head>
+<body>
+
+</body>
+</html>
