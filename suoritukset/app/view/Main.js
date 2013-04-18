@@ -6,12 +6,10 @@ Ext.define('Suoritukset.view.Main', {
         setStyleHtmlContent: true,
         ui: 'dark',
         id: 'naviview',
-        style: 'background-color: black;',
         defaultBackButtonText: 'Etusivu',
         items: [
       {
           xtype: 'container',
-          style: 'background-color: black;',
           title: 'Suoritukset',
           layout: {
               type: 'vbox',
@@ -26,6 +24,7 @@ Ext.define('Suoritukset.view.Main', {
               maxHeight: '200px',
               width: '94%',
               height: '30%',
+              ui: 'round',
               listeners: {
                   tap: function () {
                       Ext.getCmp('naviview').push(new Ext.create('Suoritukset.view.Kurssit'));
@@ -38,8 +37,7 @@ Ext.define('Suoritukset.view.Main', {
               maxHeight: '200px',
               width: '94%',
               height: '30%',
-              ui: 'action',
-              style: 'color: white',
+              ui: 'action-round',
               listeners: {
                   tap: function () {
                       Ext.getCmp('naviview').push(new Ext.create('Suoritukset.view.Tutkinnot'));
