@@ -10,10 +10,12 @@ Ext.application({
   }
 });
 
-// TESTAUKSEEN
-/*
+
 Ext.onReady(function() {
+  /**
   var button = Ext.get("ext-button-3")
   button.fireEvent("tap");
+  */
+  palautaTutkintoPisteet()
 });
-*/
+
