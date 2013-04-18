@@ -1,7 +1,6 @@
 Ext.define('Suoritukset.store.Kandikurssit', {
-	extend: "Ext.data.store",
-		
-		config: {
+	extend: "Ext.data.Store",		
+	config: {
 		storeId: 'kandikurssitstore',
 		id: 'kandikurssitstore',
 		model: 'Suoritukset.model.Kandikurssi',
@@ -15,6 +14,5 @@ Ext.define('Suoritukset.store.Kandikurssit', {
 				rootProperty: 'kandikurssit'
 			}
 		}
-		}
-
-	});
+	}
+});
