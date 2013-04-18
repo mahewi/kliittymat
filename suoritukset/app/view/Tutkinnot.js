@@ -79,4 +79,41 @@ Ext.define('Suoritukset.view.Tutkinnot', {
 
         ]
     }
+	
 });*/
+function haeOpintopisteet(kandiId, opId) {
+	
+	var kandiKurssitStore = Ext.getStore('kandikurssitstore')
+	var suoritusStore = Ext.getStore('suoritusstore')
+	var kurssitStore = Ext.getStore('kurssitstore')
+	var pisteet = 0
+	var ktunnukset = []
+	
+	if (kandiId == 0) {
+		for(var i = 0; i < suoritusStore.getCount(); i++) {
+			var op = suoritusstore.getAt(i).get('sid')
+			if (op == opId) {
+				var ktunnus = suoritusstore.getAt(i).get('code')				
+				for(var j = 0; j < kurssitStore.getCount(); j++) {
+					if (ktunnus == kurssitStore.getAt(j).get('code')) {
+						pisteet = pisteet + kurssitStore.getAt(j).get('points')
+						break
+					}
+				}
+			}	
+		}
+	}
+	else {
+		for (var i = 0; i < kandiKurssitStore.getCount(); i++) {
+			if (kandiId == kandiKurssitStore.getAt(i).get('kid')) {
+				for (var j = 0; j < suoritusStore.getCount(); j++) {
+					if (opId == suoritusStore.getAt(j).get('sid') && kandiKurssitStore.getAt(i).get('code') == suoritusStore.getAt(j).get('code')) { 
+						
+					}
+				}
+			}
+		}
+	}
+	
+}
+
