@@ -36,15 +36,21 @@ function palautaTutkintoPisteet(tutkintoId) {
 
     var pisteet = 0;
 
-    for (int i=0; i < kandiKurssitStore.getCount(); i++) {
-        if (kandiKurssiStore.getAt(i).get('kid') == tutkintoId) {
-            for (int j= 0; j < kurssitStore.getCount(); j++) {
-                if (kurssitStore.getAt(j).get('code') == kandiKurssitStore.getAt(i).get('kid')) {
+    console.log(kurssitStore.getCount());
+
+    for (var i=0 ; i < kandiKurssitStore.getCount() ; i++) {
+        console.log("jadfad");
+        if (kandiKurssitStore.getAt(i).get('kandiId') == tutkintoId) {
+            console.log("Eh");
+            for (var j= 0 ; j < kurssitStore.getCount() ; j++) {
+                if (kurssitStore.getAt(j).get('code') == kandiKurssitStore.getAt(i).get('kurssitunnus')) {
+                    console.log(kurssitStore.getAt(j).get('code'));
                     pisteet = pisteet + kurssitStore.getAt(j).get('points')
                 }
             }
         }
     }
+    console.log(pisteet);
     return pisteet;     
 }
 
