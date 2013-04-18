@@ -1,4 +1,4 @@
-Ext.define("Suoritukset.model.Tutkinto", {
++Ext.define("Suoritukset.model.Tutkinto", {
   extend: "Ext.data.Model",
   config: {
     fields: [

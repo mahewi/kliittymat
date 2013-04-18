@@ -29,6 +29,31 @@ Ext.define('Suoritukset.view.Tutkinnot', {
         }
     }
 });
+
+function palautaTutkintoPisteet(tutkintoId) {
+    var kurssitStore = Ext.getStore('kurssitstore');
+    var kandiKurssitStore = Ext.getStore('kandikurssitstore');
+
+    var pisteet = 0;
+
+    console.log(kurssitStore.getCount());
+
+    for (var i=0 ; i < kandiKurssitStore.getCount() ; i++) {
+        console.log("jadfad");
+        if (kandiKurssitStore.getAt(i).get('kandiId') == tutkintoId) {
+            console.log("Eh");
+            for (var j= 0 ; j < kurssitStore.getCount() ; j++) {
+                if (kurssitStore.getAt(j).get('code') == kandiKurssitStore.getAt(i).get('kurssitunnus')) {
+                    console.log(kurssitStore.getAt(j).get('code'));
+                    pisteet = pisteet + kurssitStore.getAt(j).get('points')
+                }
+            }
+        }
+    }
+    console.log(pisteet);
+    return pisteet;     
+}
+
 /*Ext.define('Suoritukset.view.Tutkinnot', {
     extend: 'Ext.Container',
     config: {
