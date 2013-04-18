@@ -5,6 +5,11 @@ Ext.define("Suoritukset.store.Opiskelijat", {
     id: 'opiskelijatstore',
     model: 'Suoritukset.model.Opiskelija',
     autoLoad: true,
+    grouper:{
+        groupFn: function(record){
+            return record.get('name')[0];
+        }
+    },
     proxy: {
       type: 'ajax',
       url: 'students.json',
@@ -12,7 +17,7 @@ Ext.define("Suoritukset.store.Opiskelijat", {
         type: 'json'
       }
     },
-	listeners: {
+    listeners: {
 		load: function(store) {
 			var av = Ext.getCmp('select');
 			var vuodet = {}
@@ -37,8 +42,6 @@ Ext.define("Suoritukset.store.Opiskelijat", {
 			os.setMaxValue(apu[apu.length - 1]);
 			os.setMinValue(apu[0]);
 		}
+  	}
   }
-
- }
- 
 });
