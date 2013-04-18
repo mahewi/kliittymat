@@ -2,31 +2,13 @@ Ext.define('Suoritukset.view.Kurssit', {
   extend: 'Ext.dataview.List',
 	require: ['Suoritukset.view.Kurssi'],
   config: {
-  	items:[
-  		{
-  			xtype: 'titlebar',
-  			docked: 'top',
-  			ui: 'dark',
-  			items:[
-  				{
-  					xtype: 'searchfield',
-  					align: 'right',
-  					placeHolder: '  Etsi...',
-  					listeners:{
-  						clearicontap: onSearchClearIconTap,
-  						keyup: onSearchKeyUp
-  					}
-  				}
-  			]
-  		}
-  	],
       ui: 'round',
       grouped: true,
       fullscreen: true,
       id: 'kurssilista',
       title: 'Kurssit',
       setStyleHtmlContent: true,
-      itemTpl: 
+      itemTpl:
         '<tpl for="."><div class="Kurssi">' +
         '  {name}<br /><small>{code}</small>' +
         '</div></tpl>',
@@ -51,10 +33,10 @@ function suodataLista(){
         		}
 			}
 		})
-	);	
+	);
 };
 function haeSuoritukset(){
-    
+
     var opStore = Ext.getStore('opiskelijatstore');
     var suoritusStore = Ext.getStore('suoritusstore');
     var kurssikoodilista = new Array();
@@ -71,7 +53,7 @@ function haeSuoritukset(){
         }
     }
 
- 
+
     return kurssikoodilista;
-}  
+}
 
