@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/happco/!svn/ver/694/Xcode/www/touch/src/draw/sprite
+END
+Arc.js
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/happco/!svn/ver/694/Xcode/www/touch/src/draw/sprite/Arc.js
+END
+Sprite.js
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/happco/!svn/ver/694/Xcode/www/touch/src/draw/sprite/Sprite.js
+END
+EllipticalArc.js
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/happco/!svn/ver/694/Xcode/www/touch/src/draw/sprite/EllipticalArc.js
+END
+AttributeDefinition.js
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/happco/!svn/ver/694/Xcode/www/touch/src/draw/sprite/AttributeDefinition.js
+END
+AttributeParser.js
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/happco/!svn/ver/694/Xcode/www/touch/src/draw/sprite/AttributeParser.js
+END
+Image.js
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/happco/!svn/ver/694/Xcode/www/touch/src/draw/sprite/Image.js
+END
+Text.js
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/happco/!svn/ver/694/Xcode/www/touch/src/draw/sprite/Text.js
+END
+Path.js
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/happco/!svn/ver/694/Xcode/www/touch/src/draw/sprite/Path.js
+END
+AnimationParser.js
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/happco/!svn/ver/694/Xcode/www/touch/src/draw/sprite/AnimationParser.js
+END
+Rect.js
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/happco/!svn/ver/694/Xcode/www/touch/src/draw/sprite/Rect.js
+END
+Instancing.js
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/happco/!svn/ver/694/Xcode/www/touch/src/draw/sprite/Instancing.js
+END
+Ellipse.js
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/happco/!svn/ver/694/Xcode/www/touch/src/draw/sprite/Ellipse.js
+END
+Sector.js
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/happco/!svn/ver/694/Xcode/www/touch/src/draw/sprite/Sector.js
+END
+Circle.js
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/happco/!svn/ver/694/Xcode/www/touch/src/draw/sprite/Circle.js
+END
+Composite.js
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/happco/!svn/ver/694/Xcode/www/touch/src/draw/sprite/Composite.js
+END
