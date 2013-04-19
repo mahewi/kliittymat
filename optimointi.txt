@@ -1,0 +1,23 @@
+nyt: 1 opiskelija maksimissaan luokkaa
+3 * 1502 * 408 = 1838448 kierrosta
+
+
+ehdotus:
+sivulatauksen yhteydessä luodaan väliaikainen objekti jossa avaimina kurssien id:t
+ja tieto siitä mihin rakenteisiin kuuluu.
+var rakenteisiinKuuluvat = {'JO029007'=>['KANDI1','KANDI2'],'JO02393'=>['KANDI1'], ...}
+
+ja valitessa kandirakenteita kasataan objekti siitä mitkä valinnat tehty kandeista:
+var valitutRakenteet = {'KANDI1'=>false,'KANDI2'=>true,'KANDI3'=>false}
+
+luodaan json jossa opiskelija -> kurssi, käydään yksittäisen opiskelijan kohdalla läpi jokainen kurssi
+kerran ja tiedetään kuuluuko rakenteeseen ilman että luupataan jotakuinkin seuraavasti:
+
+    rakenteet = rakenteisiinKuuluvat[code]
+    for(i in rakenteet)
+        if(valitutRakenteet[i]) pisteitaRakenteessa[i] += kurssin pistemäärä...
+    }
+
+yksittäisen opiskelijan kohdalla siis kaiketi max 408*3 kierrosta
+ja yhteensä koko listalla 37 * 408 * 3 = 45288 kierrosta
+
