@@ -23,6 +23,7 @@ Ext.define('Suoritukset.view.Tutkinnot', {
               label: nimi,
               value: index
             }));
+            haeOpintopisteet(1,'8001')
           }
         }
       }
@@ -110,8 +111,11 @@ function haeOpintopisteet(kandiId, opId) {
   kandiKurssitStore.filter('kandiId',kandiId)
   var points = 0;
   for(var i = 0; i < suoritusStore.getCount(); i++){
-    kurssi = kurssitStore.getAt(i)
-    if(kandiKurssitStore.find('kurssitunnus',kurssi.get('code')) != -1){
+    suoritus = suoritusStore.getAt(i)
+    var suoritettuKurssi = suoritus.get('code')
+    if(kandiKurssitStore.find('kurssitunnus',suoritettuKurssi) != -1){
+      kurssinIndeksi = kurssitStore.find('code',suoritettuKurssi)
+      kurssi = kurssitStore.getAt(kurssinIndeksi)
       points+=kurssi.get('points')
     }
   }
