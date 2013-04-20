@@ -38,9 +38,10 @@ function suodataLista(){
 	);	
 };
 function haeSuoritukset(){
-    
+
     var opStore = Ext.getStore('opiskelijatstore');
     var suoritusStore = Ext.getStore('suoritusstore');
+    suoritusStore.clearFilter()
     var kurssikoodilista = new Array();
 
     for (var i=0 ; i < opStore.getCount(); i++) {
@@ -54,8 +55,6 @@ function haeSuoritukset(){
              }
         }
     }
-
- 
     return kurssikoodilista;
-}  
+}
 

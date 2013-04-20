@@ -5,6 +5,6 @@ Ext.define("Suoritukset.model.Suoritus", {
       {name: 'sid', type: 'int'},
       {name: 'code', type: 'string'},
       {name: 'date', type: 'string'}
-    ],
+    ]
   }
 });

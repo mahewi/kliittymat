@@ -244,39 +244,3 @@ var task = Ext.create('Ext.util.DelayedTask', function(){
   }
   Ext.getCmp('opSlider').setValues([Ext.getCmp('A').getValue(),Ext.getCmp('B').getValue()]);
 });
-
-function suodataLista(){
-	var kurssikoodilista = haeSuoritukset();
-	Ext.getStore('kurssitstore').filter(
-		Ext.create('Ext.util.Filter',{
-			filterFn: function(record){
-				if(kurssikoodilista.indexOf(record.get('code')) == -1 ){
-        			return false;
-        		}else{
-        			return true;
-        		}
-			}
-		})
-	);	
-};
-function haeSuoritukset(){
-    
-    var opStore = Ext.getStore('opiskelijatstore');
-    var suoritusStore = Ext.getStore('suoritusstore');
-    var kurssikoodilista = new Array();
-
-    for (var i=0 ; i < opStore.getCount(); i++) {
-        var opiskelijaId = opStore.getAt(i).get('id');
-        for (var j=0 ; j < suoritusStore.getCount(); j++) {
-             var sid = suoritusStore.getAt(j).get('sid');
-             if (opiskelijaId == sid) {
-                if (kurssikoodilista.indexOf(suoritusStore.getAt(j).get('code')) == -1) {
-                    kurssikoodilista.push(suoritusStore.getAt(j).get('code'));
-                }
-             }
-        }
-    }
-
- 
-    return kurssikoodilista;
-}  
