@@ -36,7 +36,9 @@ Ext.define('Suoritukset.view.Tutkinnot', {
 
                     fs.add(Ext.create('Ext.field.Text',{
                         label: tStore.getAt(i).get('name'), 
-                        value: value + ' %'
+                        value: value + ' %',
+                        disabled: true,
+                        disabledCls: null
                     }))
 
                 }
@@ -75,8 +77,8 @@ Ext.define('Suoritukset.view.Tutkinnot', {
                                             var opiskelija = Ext.getStore('opiskelijatstore').getAt(i);
                                             opiskelija.set('kandipoints',opiskelija.get('kandipoints') - haeOpintopisteet(cb.getValue(),opiskelija.get('id')));
                                         }
-                                        Ext.getStore('opiskelijatstore').sort({property: 'kandipoints'});
-                                        Ext.getStore('opiskelijatstore').sort({property: 'points'});
+                                        Ext.getStore('opiskelijatstore').sort({property: 'kandipoints',direction:'DESC'});
+                                        Ext.getStore('opiskelijatstore').sort({property: 'points',direction: 'DESC'});
                                     }
                                 }
                             }
@@ -115,6 +117,9 @@ function haeOpintopisteet(kandiId, opId) {
   var kandiKurssitStore = Ext.getStore('kandikurssitstore')
   var suoritusStore = Ext.getStore('suoritusstore')
   var kurssitStore = Ext.getStore('kurssitstore')
+  kurssitStore.clearFilter(true)
+  suoritusStore.clearFilter(true)
+  kandiKurssitStore.clearFilter(true)
   // karsitaan listoja
   suoritusStore.filter('sid',opId)
   kandiKurssitStore.filter('kandiId',kandiId)
@@ -128,5 +133,8 @@ function haeOpintopisteet(kandiId, opId) {
       points+=kurssi.get('points')
     }
   }
+  kurssitStore.clearFilter(true)
+  suoritusStore.clearFilter(true)
+  kandiKurssitStore.clearFilter(true)
   return points
 }

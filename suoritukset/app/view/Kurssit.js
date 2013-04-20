@@ -11,7 +11,7 @@ Ext.define('Suoritukset.view.Kurssit', {
 
         itemTpl:
           '<tpl for="."><div class="Kurssi">' +
-          ' {name}<br /><small>{code}</small><br />' +
+          ' {name}<br /><small>{code}</small>' +
           '</div></tpl>',
         store: 'kurssitstore',
         listeners: {
@@ -55,6 +55,7 @@ function haeSuoritukset(){
              }
         }
     }
+    suoritusStore.clearFilter()
     return kurssikoodilista;
 }
 
