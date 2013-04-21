@@ -12,13 +12,15 @@ Ext.define('Suoritukset.view.Kurssi', {
     items: [
       {
         xtype: 'toolbar',
-        title: 'osallistujat',
+        title: 'Suoritukset',
         docked: 'top',
         items: [
           {
             xtype: 'spacer'
           },{
-            text: 'sulje',
+            xtype: 'button',
+            iconCls: 'delete',
+            iconMask: true,
             handler: function(){
               Ext.getCmp('kurssi').destroy();
             }
@@ -65,7 +67,7 @@ var chart = {
       type: 'numeric',
       position: 'left',
       title: {
-        text: 'Opiskelijoita kurssilla',
+        text: 'Kurssin suorittaneet opiskelijat (kpl)',
         fontSize: 12,
       },
       titleMargin: 20,
