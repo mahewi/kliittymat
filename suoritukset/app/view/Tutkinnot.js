@@ -4,12 +4,12 @@ Ext.define('Suoritukset.view.Tutkinnot', {
   config: {
     ui: 'round',
     title: 'Tutkinnot',
+    id: 'opiskelijaLista',
     setStyleHtmlContent: true,
     itemTpl: '{name}',
     store: 'opiskelijatstore',
     listeners: {
       itemtap: function (dataview, index, target, record, e, eOpts) {
-
         var tStore = Ext.getStore('tutkinnotstore')
         var suoritusstore = Ext.getStore('suoritusstore')
         suoritusstore.clearFilter()
@@ -35,8 +35,6 @@ Ext.define('Suoritukset.view.Tutkinnot', {
           ]
         });
         fs.add(toolbar)
-
-
         for(var i = 0 ; i<tStore.getCount();i++){
           var kandi = tStore.getAt(i).get('id')
           console.log(kandi)
@@ -44,10 +42,7 @@ Ext.define('Suoritukset.view.Tutkinnot', {
           value = value / Ext.getCmp(tStore.getAt(i).get('name')+'HIDDEN').getValue()
           value = (value * 100)
           value = Math.round(value*Math.pow(10,2))/Math.pow(10,2)
-
-
           fs.add(Ext.create('Ext.Button',{
-
             ui: 'action',
             maxWidth:'300px',
             html: '<strong>'+tStore.getAt(i).get('name')+'</strong><strong style="align: right">'+'   '+value + ' %</strong>',
@@ -66,17 +61,15 @@ Ext.define('Suoritukset.view.Tutkinnot', {
                 }))
               }
             }
-
           }))
-
         }
-
-
-
         Ext.Viewport.add(new Suoritukset.view.Tutkinto({items:fs}));
+      },
+      initialize: function(cmp){
+        showList(false, Ext.getStore('opiskelijatstore'), Ext.getCmp('opiskelijaLista'))
       }
     },
-    items: {
+    items:[{
       xtype: 'fieldset',
       id: 'kandiLista',
       docked: 'top',
@@ -94,19 +87,31 @@ Ext.define('Suoritukset.view.Tutkinnot', {
               value: index,
               listeners:{
                 change: function(cb,newVal,oldVal, eOpts){
+                  var index = 0;
+                  var kandit = kandilista.getItems()
+                  var opiskelijaLista = Ext.getCmp('opiskelijaLista');
+                  var opiskelijatStore = Ext.getStore('opiskelijatstore')
+                  somethingChecked = false;
+                  for(var i = 0; i < kandit.getCount(); i++){
+                    checkedStatus = kandit.getAt(i)._checked
+                    if(typeof(checkedStatus) != 'undefined'){
+                      if(checkedStatus) somethingChecked = true
+                    }
+                  }
+                  showList(somethingChecked,opiskelijatStore,opiskelijaLista)
                   if(newVal == true){
-                    for(var i = 0; i<Ext.getStore('opiskelijatstore').getCount();i++){
-                      var opiskelija = Ext.getStore('opiskelijatstore').getAt(i);
+                    for(var i = 0; i<opiskelijatStore.getCount();i++){
+                      var opiskelija = opiskelijatStore.getAt(i);
                       opiskelija.set('kandipoints',opiskelija.get('kandipoints') + haeOpintopisteet(cb.getValue(),opiskelija.get('id')));
                     }
-                    Ext.getStore('opiskelijatstore').sort({property: 'kandipoints'});
+                    opiskelijatStore.sort({property: 'kandipoints'});
                   }else{
-                    for(var i = 0; i<Ext.getStore('opiskelijatstore').getCount();i++){
-                      var opiskelija = Ext.getStore('opiskelijatstore').getAt(i);
+                    for(var i = 0; i<opiskelijatStore.getCount();i++){
+                      var opiskelija = opiskelijatStore.getAt(i);
                       opiskelija.set('kandipoints',opiskelija.get('kandipoints') - haeOpintopisteet(cb.getValue(),opiskelija.get('id')));
                     }
-                    Ext.getStore('opiskelijatstore').sort({property: 'kandipoints',direction:'DESC'});
-                    Ext.getStore('opiskelijatstore').sort({property: 'points',direction: 'DESC'});
+                    opiskelijatStore.sort({property: 'kandipoints',direction:'DESC'});
+                    opiskelijatStore.sort({property: 'points',direction: 'DESC'});
                   }
                 }
               }
@@ -117,9 +122,9 @@ Ext.define('Suoritukset.view.Tutkinnot', {
               value: palautaTutkintoPisteet(index)
             }));
           }
-        }
+        },
       }
-    }
+    },{xtype:'container',html:'testaa'}]
   }
 });
 
@@ -156,4 +161,12 @@ function haeOpintopisteet(kandiId, opId) {
     }
   }
   return points
+}
+function showList(bool,opiskelijatStore,opiskelijaLista){
+  if(!bool){
+    opiskelijatStore.filter('sid',0)
+  } else {
+    opiskelijatStore.clearFilter()
+  }
+  opiskelijaLista.refresh()
 }
