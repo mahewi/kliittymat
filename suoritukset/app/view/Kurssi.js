@@ -13,6 +13,7 @@ Ext.define('Suoritukset.view.Kurssi', {
       {
         xtype: 'toolbar',
         title: 'Suoritukset',
+        id: 'suoritusToolbar',
         docked: 'top',
         items: [
           {
@@ -33,6 +34,7 @@ Ext.define('Suoritukset.view.Kurssi', {
           painted: function() {
             var suoritusStore = Ext.getStore('suoritusstore')
             suoritusStore.clearFilter()
+            Ext.getCmp('suoritusToolbar').setTitle('Suoritukset <small>' + selectedCourseCode+'</small>')
             suoritusStore.filter('code',selectedCourseCode)
             yearlyStudents = {}
             for(var i = 0; i < suoritusStore.getCount(); i++){

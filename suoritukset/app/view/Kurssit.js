@@ -18,7 +18,7 @@ Ext.define('Suoritukset.view.Kurssit', {
       painted: suodataLista,
       itemtap: function(me, index, target, record, e, eOpts){
         selectedCourseCode = record.get('code');
-        Ext.Viewport.add({xtype:'kurssiDialog'});
+        Ext.Viewport.add(new Suoritukset.view.Kurssi());
       }
     }
   }
