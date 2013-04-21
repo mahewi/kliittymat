@@ -52,6 +52,8 @@ function haeSuoritukset(){
              }
         }
     }
+
+ 
     return kurssikoodilista;
 }
 

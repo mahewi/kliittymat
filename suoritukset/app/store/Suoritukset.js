@@ -5,6 +5,12 @@ Ext.define("Suoritukset.store.Suoritukset", {
     id: 'suoritusstore',
     model: 'Suoritukset.model.Suoritus',
     autoLoad: true,
+    sorters:[
+      {
+        property: 'code',
+        direction: 'ASC'
+      }
+    ],
     proxy: {
       type: 'ajax',
       url: 'suoritukset.json',

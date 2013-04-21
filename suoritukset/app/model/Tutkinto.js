@@ -4,7 +4,6 @@
     fields: [
       {name: 'id', type: 'string'},
       {name: 'name', type: 'string'}
-    ],
-    hasMany: {model: "Suoritukset.model.Kurssi", name: 'kurssit'}
+    ]
   }
 });

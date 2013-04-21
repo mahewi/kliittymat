@@ -1,44 +1,132 @@
 Ext.define('Suoritukset.view.Tutkinnot', {
-  extend: 'Ext.dataview.List',
-  config: {
-    ui: 'round',
-    title: 'Tutkinnot',
-    setStyleHtmlContent: true,
-    itemTpl: '{name}',
-    grouped: true,
-    store: 'opiskelijatstore',
-    items: {
-      xtype: 'fieldset',
-      id: 'kandiLista',
-      docked: 'top',
-      listeners: {
-        initialize: function () {
-          var kandilista = Ext.getCmp('kandiLista');
-          var tStore = Ext.getStore('tutkinnotstore');
-          for (var i = 0; i < tStore.getCount(); i++) {
-            var nimi = tStore.getAt(i).get('name');
-            var index = tStore.getAt(i).get('id');
-            kandilista.add(new Ext.create('Ext.field.Checkbox', {
-              name: index,
-              label: nimi,
-              value: index
-            }));
-            haeOpintopisteet(1,'8001')
-          }
+    extend: 'Ext.dataview.List',
+    requires: ['Suoritukset.view.Tutkinto'],
+    config: {
+        ui: 'round',
+        title: 'Tutkinnot',
+        setStyleHtmlContent: true,
+        itemTpl: '{name}',
+        store: 'opiskelijatstore',
+        listeners: {
+            itemtap: function (dataview, index, target, record, e, eOpts) {
+                
+                var tStore = Ext.getStore('tutkinnotstore')
+                var suoritusstore = Ext.getStore('suoritusstore')
+                suoritusstore.clearFilter()
+                suoritusstore.filter('sid',record.get('id'))
+                var fs = Ext.create('Ext.form.FieldSet',{
+                  docked: 'top'
+                })
+                var toolbar = Ext.create('Ext.Toolbar',{
+                  title: record.get('name'),
+                  docked: 'top',
+                  items: [
+                    {
+                      xtype: 'spacer'
+                    },
+                    {
+                      iconCls: 'delete',
+                      iconMask: true,
+                      handler: function(){
+                        Ext.getCmp('tutkinto').destroy();
+                        Ext.getStore('suoritusstore').clearFilter();
+                      }
+                    }
+                  ]
+                });
+                fs.add(toolbar)
+
+
+                for(var i = 0 ; i<tStore.getCount();i++){
+                    var kandi = tStore.getAt(i).get('id')
+                    console.log(kandi)
+                    var value = haeOpintopisteet(tStore.getAt(i).get('id'),record.get('id'))
+                    value = value / Ext.getCmp(tStore.getAt(i).get('name')+'HIDDEN').getValue()
+                    value = (value * 100)
+                    value = Math.round(value*Math.pow(10,2))/Math.pow(10,2)
+
+
+                   fs.add(Ext.create('Ext.Button',{
+                        
+                        ui: 'action',
+                        maxWidth:'300px',
+                        html: '<strong>'+tStore.getAt(i).get('name')+'</strong><strong style="align: right">'+'   '+value + ' %</strong>',
+                        text: kandi,
+                        listeners: {
+                          tap: function(btn,e,eOpts){
+                            var kandiKurssitStore = Ext.getStore('kandikurssitstore')
+                            var suoritusStore = Ext.getStore('suoritusstore')
+                            kandiKurssitStore.clearFilter()
+                            kandiKurssitStore.filter('kandiId',btn.getText())
+                            suoritusStore.filter('sid',record.get('id'))
+                            suoritusStore.filter(new Ext.util.Filter({
+                              filterFn: function(item){
+                                return kandiKurssitStore.find('kurssitunnus',item.get('code')) != -1
+                              }
+                            }))
+                        }
+                    }
+
+                    }))
+
+                }
+
+                
+
+                Ext.Viewport.add(new Suoritukset.view.Tutkinto({items:fs}));
+            }
+        },
+        items: {
+            xtype: 'fieldset',
+            id: 'kandiLista',
+            docked: 'top',
+            listeners: {
+                painted: function () {
+                    var kandilista = Ext.getCmp('kandiLista');
+                    var tStore = Ext.getStore('tutkinnotstore');
+                    for (var i = 0; i < tStore.getCount(); i++) {
+                        var nimi = tStore.getAt(i).get('name');
+                        var index = tStore.getAt(i).get('id');
+                        kandilista.add(new Ext.create('Ext.field.Checkbox', {
+                            name: nimi,
+                            id: nimi + 'NAME',
+                            label: nimi,
+                            value: index,
+                            listeners:{
+                                change: function(cb,newVal,oldVal, eOpts){
+                                    if(newVal == true){
+                                        for(var i = 0; i<Ext.getStore('opiskelijatstore').getCount();i++){
+                                            var opiskelija = Ext.getStore('opiskelijatstore').getAt(i);
+                                            opiskelija.set('kandipoints',opiskelija.get('kandipoints') + haeOpintopisteet(cb.getValue(),opiskelija.get('id')));
+                                        }
+                                        Ext.getStore('opiskelijatstore').sort({property: 'kandipoints'});
+                                    }else{
+                                        for(var i = 0; i<Ext.getStore('opiskelijatstore').getCount();i++){
+                                            var opiskelija = Ext.getStore('opiskelijatstore').getAt(i);
+                                            opiskelija.set('kandipoints',opiskelija.get('kandipoints') - haeOpintopisteet(cb.getValue(),opiskelija.get('id')));
+                                        }
+                                        Ext.getStore('opiskelijatstore').sort({property: 'kandipoints',direction:'DESC'});
+                                        Ext.getStore('opiskelijatstore').sort({property: 'points',direction: 'DESC'});
+                                    }
+                                }
+                            }
+                        }));
+                        kandilista.add(new Ext.create('Ext.field.Hidden', {
+                            name: nimi+'-pisteet',
+                            id: nimi + 'HIDDEN',
+                            value: palautaTutkintoPisteet(index)
+                        }));
+                    }
+                }
+            }
         }
-      }
     }
-  }
 });
 
 function palautaTutkintoPisteet(tutkintoId) {
   var kurssitStore = Ext.getStore('kurssitstore');
   var kandiKurssitStore = Ext.getStore('kandikurssitstore');
-
   var pisteet = 0;
-
-  console.log(kurssitStore.getCount());
-
   for (var i=0 ; i < kandiKurssitStore.getCount() ; i++) {
     if (kandiKurssitStore.getAt(i).get('kandiId') == tutkintoId) {
       for (var j= 0 ; j < kurssitStore.getCount() ; j++) {
@@ -50,58 +138,6 @@ function palautaTutkintoPisteet(tutkintoId) {
   }
   return pisteet;
 }
-/*Ext.define('Suoritukset.view.Tutkinnot', {
-  extend: 'Ext.Container',
-  config: {
-      layout: 'hbox',
-      title: 'Tutkinnot',
-      items: [
-          {
-              // field, jossa togglenappuloita, jokaista tutkintoa varten
-
-              xtype: 'fieldset',
-              id: 'fieldisettii',
-              docked: 'left',
-              flex: 1,
-              items: [
-                  {
-                      xtype: 'checkboxfield',
-                      name: 'kandi1',
-                      label: 'Kandi1',
-                      value: 'kandi1',
-                      checked: true,
-                      labelWidth: '50%'
-                  },
-                  {
-                      xtype: 'checkboxfield',
-                      name: 'kandi2',
-                      label: 'Kandi2',
-                      value: 'kandi2',
-                      labelWidth: '50%'
-                  },
-                  {
-                      xtype: 'checkboxfield',
-                      name: 'kandi3',
-                      label: 'Kandi3',
-                      value: 'kandi3',
-                      labelWidth: '50%'
-                  },
-              ]
-
-
-          },
-          {
-              // listausopiskelijoista
-              xtype: 'list',
-              flex: 2.5,
-              store: Ext.getStore('opiskelijatstore'),
-              itemTpl:'<tpl for='.'>{name}</tpl>'
-          }
-
-      ]
-  }
-
-});*/
 function haeOpintopisteet(kandiId, opId) {
   var kandiKurssitStore = Ext.getStore('kandikurssitstore')
   var suoritusStore = Ext.getStore('suoritusstore')
@@ -121,4 +157,3 @@ function haeOpintopisteet(kandiId, opId) {
   }
   return points
 }
-
