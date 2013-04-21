@@ -12,13 +12,16 @@ Ext.define('Suoritukset.view.Kurssi', {
     items: [
       {
         xtype: 'toolbar',
-        title: 'osallistujat',
+        title: 'Suoritukset',
+        id: 'suoritusToolbar',
         docked: 'top',
         items: [
           {
             xtype: 'spacer'
           },{
-            text: 'sulje',
+            xtype: 'button',
+            iconCls: 'delete',
+            iconMask: true,
             handler: function(){
               Ext.getCmp('kurssi').destroy();
             }
@@ -30,6 +33,8 @@ Ext.define('Suoritukset.view.Kurssi', {
         listeners: {
           painted: function() {
             var suoritusStore = Ext.getStore('suoritusstore')
+            suoritusStore.clearFilter()
+            Ext.getCmp('suoritusToolbar').setTitle('Suoritukset <small>' + selectedCourseCode+'</small>')
             suoritusStore.filter('code',selectedCourseCode)
             yearlyStudents = {}
             for(var i = 0; i < suoritusStore.getCount(); i++){
@@ -64,7 +69,7 @@ var chart = {
       type: 'numeric',
       position: 'left',
       title: {
-        text: 'Opiskelijoita kurssilla',
+        text: 'Kurssin suorittaneet opiskelijat (kpl)',
         fontSize: 12,
       },
       titleMargin: 20,

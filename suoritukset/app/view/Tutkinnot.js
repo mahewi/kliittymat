@@ -9,6 +9,9 @@ Ext.define('Suoritukset.view.Tutkinnot', {
     itemTpl: '<div class="listItem">{name}</div>',
     store: 'opiskelijatstore',
     listeners: {
+      painted: function(){
+        valitutKandit = new Array()
+      },
       itemtap: function (dataview, index, target, record, e, eOpts) {
         var tStore = Ext.getStore('tutkinnotstore')
         var suoritusstore = Ext.getStore('suoritusstore')
@@ -35,23 +38,24 @@ Ext.define('Suoritukset.view.Tutkinnot', {
           ]
         });
         fs.add(toolbar)
-        for(var i = 0 ; i<tStore.getCount();i++){
-          var kandi = tStore.getAt(i).get('id')
-          console.log(kandi)
-          var value = haeOpintopisteet(tStore.getAt(i).get('id'),record.get('id'))
-          value = value / Ext.getCmp(tStore.getAt(i).get('name')+'HIDDEN').getValue()
-          value = (value * 100)
-          value = Math.round(value*Math.pow(10,2))/Math.pow(10,2)
+
+        for(var i = 0; i<valitutKandit.length;i++){
+          var kandi = valitutKandit[i]
+          var index = tStore.find('id',kandi)
+          var value = haeOpintopisteet(kandi,record.get('id'))
+          value = value / palautaTutkintoPisteet(kandi)
+          value = (value * 100) 
+          value = Math.round(value*100)/100 
           fs.add(Ext.create('Ext.Button',{
             ui: 'action',
-            maxWidth:'300px',
-            html: '<strong>'+tStore.getAt(i).get('name')+'</strong><strong style="align: right">'+'   '+value + ' %</strong>',
+            html: '<strong>'+tStore.getAt(index).get('name')+'</strong><strong style="align: right">'+'   '+value + ' %</strong>',
             text: kandi,
             listeners: {
               tap: function(btn,e,eOpts){
                 var kandiKurssitStore = Ext.getStore('kandikurssitstore')
                 var suoritusStore = Ext.getStore('suoritusstore')
                 kandiKurssitStore.clearFilter()
+                suoritusStore.clearFilter()
                 kandiKurssitStore.filter('kandiId',btn.getText())
                 suoritusStore.filter('sid',record.get('id'))
                 suoritusStore.filter(new Ext.util.Filter({
@@ -104,10 +108,11 @@ Ext.define('Suoritukset.view.Tutkinnot', {
                       var opiskelija = opiskelijatStore.getAt(i);
                       opiskelija.set('kandipoints',opiskelija.get('kandipoints') + haeOpintopisteet(cb.getValue(),opiskelija.get('id')));
                     }
-                    opiskelijatStore.sort({property: 'kandipoints'});
+                    opiskelijatStore.sort({property: 'kandipoints',direction: 'DESC'});
                   }else{
-                    for(var i = 0; i<opiskelijatStore.getCount();i++){
-                      var opiskelija = opiskelijatStore.getAt(i);
+                    valitutKandit.splice(valitutKandit.indexOf(cb.getValue()),1)
+                    for(var i = 0; i<Ext.getStore('opiskelijatstore').getCount();i++){
+                      var opiskelija = Ext.getStore('opiskelijatstore').getAt(i);
                       opiskelija.set('kandipoints',opiskelija.get('kandipoints') - haeOpintopisteet(cb.getValue(),opiskelija.get('id')));
                     }
                     opiskelijatStore.sort({property: 'kandipoints',direction:'DESC'});
@@ -115,11 +120,6 @@ Ext.define('Suoritukset.view.Tutkinnot', {
                   }
                 }
               }
-            }));
-            kandilista.add(new Ext.create('Ext.field.Hidden', {
-              name: nimi+'-pisteet',
-              id: nimi + 'HIDDEN',
-              value: palautaTutkintoPisteet(index)
             }));
           }
         }
@@ -154,13 +154,14 @@ function haeOpintopisteet(kandiId, opId) {
   var suoritusStore = Ext.getStore('suoritusstore')
   var kurssitStore = Ext.getStore('kurssitstore')
   // karsitaan listoja
+  kandiKurssitStore.clearFilter()
   suoritusStore.filter('sid',opId)
   kandiKurssitStore.filter('kandiId',kandiId)
   var points = 0;
   for(var i = 0; i < suoritusStore.getCount(); i++){
     suoritus = suoritusStore.getAt(i)
     var suoritettuKurssi = suoritus.get('code')
-    if(kandiKurssitStore.find('kurssitunnus',suoritettuKurssi) != -1){
+    if(kandiKurssitStore.find('kurssitunnus',suoritettuKurssi) != -1){   
       kurssinIndeksi = kurssitStore.find('code',suoritettuKurssi)
       kurssi = kurssitStore.getAt(kurssinIndeksi)
       points+=kurssi.get('points')
@@ -181,3 +182,5 @@ function showList(bool,opiskelijatStore,opiskelijaLista){
   }
   opiskelijaLista.refresh()
 }
+
+var valitutKandit = new Array();

@@ -6,7 +6,7 @@ Ext.define('Suoritukset.view.Main', {
     setStyleHtmlContent: true,
     ui: 'dark',
     id: 'naviview',
-    defaultBackButtonText: 'Edellinen',
+    defaultBackButtonText: ' ',
     items: [
       {
       xtype: 'container',
@@ -62,6 +62,7 @@ Ext.define('Suoritukset.view.Main', {
     ],
     navigationBar: {
       docked: 'top',
+      backButton: {iconCls: 'home',iconMask: true},
       items: [
         {
         xtype: 'button',
@@ -211,7 +212,6 @@ var suodatusPanel = Ext.create('Ext.Panel', {
 
             var enimi = Ext.getCmp('etunimi');
             var snimi = Ext.getCmp('sukunimi');
-
             var nro = Ext.getCmp('nro');
             var select = Ext.getCmp('select');
             var a = Ext.getCmp('A');
@@ -220,6 +220,11 @@ var suodatusPanel = Ext.create('Ext.Panel', {
             var items = fs1.getItems();
             if (enimi.getValue() != '' && snimi.getValue() != '') {
               store.filter(new Ext.util.Filter({ property: 'name', value: snimi.getValue() + ' ' + enimi.getValue() }));
+            }else if (enimi.getValue() != '' || snimi.getValue() != ''){
+              Ext.Msg.alert('Suodatusvirhe', 'T&auml;yt&auml; sek&auml; etunimi ett&auml; sukunimi', Ext.emptyFn);
+              Ext.getCmp('etunimi').reset();
+              Ext.getCmp('sukunimi').reset();
+            
             }
             if (select.getValue() != '') {
               store.filter(new Ext.util.Filter({ property: 'started', value: select.getValue() }));
