@@ -18,7 +18,12 @@ Ext.define('Suoritukset.view.Main', {
       },
       items: [
         {
-          html: '<br /> Listaa kurssit ja vuosittaiset opiskelijam&auml;&auml;r&auml;t hakuehtojen mukaan.'
+          style: {padding: '20px 20px 5px 20px'},
+          html: 'Voit suodattaa opiskelijoiden listaa yl&auml;puolella n&auml;kyv&auml;st&auml; "Suodata"-napista. Oletuksena kaikki opiskelijat ovat valittuina.<br /><br />'
+        },
+        {
+          style: {padding: '0px 20px 5px 20px'},
+          html: '<br /> Listaa valittujen opiskelijoiden kurssit ja kurssien vuosittaiset opiskelijam&auml;&auml;r&auml;t.'
         },
         {
         xtype: 'button',
@@ -34,7 +39,8 @@ Ext.define('Suoritukset.view.Main', {
           }
         }
       },{
-        html: '<br /> Listaa opiskelijat jotka suorittavat valittua tutkintoa ja t&auml;ytt&auml;v&auml;t hakuehtojen kriteerit.'
+        style: {padding: '0px 20px 5px 20px'},
+        html: '<br /> Tarkastele valittuja opiskelijoita erilaisia kandirakenteita vasten.'
       },
 
        {

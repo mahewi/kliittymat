@@ -6,7 +6,7 @@ Ext.define('Suoritukset.view.Tutkinnot', {
     title: 'Tutkinnot',
     id: 'opiskelijaLista',
     setStyleHtmlContent: true,
-    itemTpl: '{name}',
+    itemTpl: '<div class="listItem">{name}</div>',
     store: 'opiskelijatstore',
     listeners: {
       itemtap: function (dataview, index, target, record, e, eOpts) {
@@ -126,9 +126,10 @@ Ext.define('Suoritukset.view.Tutkinnot', {
       }
     },{
       xtype: 'container',
+      style: {padding: '0px 20px 0px 20px'},
       docked: 'top',
       id: 'tyhjateksti',
-      html: '<br /> Valitse mink&auml; kandirakenteen opiskelijat haetaan.' 
+      html: '<br /> Valitse ylh&auml;&auml;lt&auml; mit&auml; kandirakenteita vasten opiskelijoita listataan. Lista j&auml;rjestet&auml;&auml;n opintopisteiden m&auml;&auml;r&auml;n mukaan laskevaan j&auml;rjestykseen.'
     }]
   }
 });
@@ -168,10 +169,15 @@ function haeOpintopisteet(kandiId, opId) {
   return points
 }
 function showList(bool,opiskelijatStore,opiskelijaLista){
+  // haetaan viimeinen sivulle piirrettu hommeli
+  var pageElements = opiskelijaLista.getItems()
+  var listElement = opiskelijaLista.getItems().items[pageElements.getCount()-1]
   if(!bool){
-    opiskelijatStore.filter('sid',0)
+    listElement.hide()
+    Ext.getCmp('tyhjateksti').show()
   } else {
-    opiskelijatStore.clearFilter()
+    listElement.show()
+    Ext.getCmp('tyhjateksti').hide()
   }
   opiskelijaLista.refresh()
 }
