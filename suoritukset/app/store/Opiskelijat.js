@@ -5,11 +5,14 @@ Ext.define("Suoritukset.store.Opiskelijat", {
     id: 'opiskelijatstore',
     model: 'Suoritukset.model.Opiskelija',
     autoLoad: true,
-    grouper:{
-        groupFn: function(record){
-            return record.get('name')[0];
-        }
-    },
+    sorters:[
+
+    	{
+    		property: 'points',
+    		direction: 'DESC'
+
+    	}
+    ],
     proxy: {
       type: 'ajax',
       url: 'students.json',

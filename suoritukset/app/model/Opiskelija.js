@@ -7,7 +7,8 @@ Ext.define("Suoritukset.model.Opiskelija", {
       { name: "name", type: "string" },
       { name: "points", type: "int" },
       { name: "dprogram", type: "string" },
-      { name: "major", type: "string" }
+      { name: "major", type: "string" },
+      { name: "kandipoints", type: "int"}
     ]
   }
 });
