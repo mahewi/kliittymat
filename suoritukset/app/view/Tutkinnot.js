@@ -122,9 +122,14 @@ Ext.define('Suoritukset.view.Tutkinnot', {
               value: palautaTutkintoPisteet(index)
             }));
           }
-        },
+        }
       }
-    },{xtype:'container',html:'testaa'}]
+    },{
+      xtype: 'container',
+      docked: 'top',
+      id: 'tyhjateksti',
+      html: '<br /> Valitse mink&auml; kandirakenteen opiskelijat haetaan.' 
+    }]
   }
 });
 
