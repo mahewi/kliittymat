@@ -6,14 +6,14 @@ Ext.define('Suoritukset.view.Kurssi', {
     floating: true,
     centered: true,
     modal: true,
-    width: 600,
+    width: '50%',
     height: 400,
     styleHtmlContent: true,
     items: [
       {
         xtype: 'toolbar',
         title: 'osallistujat',
-        docked: 'bottom',
+        docked: 'top',
         items: [
           {
             xtype: 'spacer'
@@ -45,6 +45,7 @@ Ext.define('Suoritukset.view.Kurssi', {
               studentsByYear.data.push({year:i,students:yearlyStudents[i]})
             }
             chart.store = studentsByYear
+            suoritusStore.clearFilter()
             this.add(chart)
           }
         }
@@ -57,6 +58,7 @@ Ext.define('Suoritukset.view.Kurssi', {
 var chart = {
     xtype: "chart",
     flex: 1,
+    width: '100%',
     axes: [
       {
       type: 'numeric',
