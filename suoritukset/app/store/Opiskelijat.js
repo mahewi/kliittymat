@@ -9,7 +9,7 @@ Ext.define("Suoritukset.store.Opiskelijat", {
 
     	{
     		property: 'points',
-    		direction: 'ASC'
+    		direction: 'DESC'
 
     	}
     ],

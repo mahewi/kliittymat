@@ -6,7 +6,7 @@ Ext.define('Suoritukset.view.Main', {
         setStyleHtmlContent: true,
         ui: 'dark',
         id: 'naviview',
-        defaultBackButtonText: 'Etusivu',
+        defaultBackButtonText: 'Edellinen',
         items: [
       {
           xtype: 'container',
