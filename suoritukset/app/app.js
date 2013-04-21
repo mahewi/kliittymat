@@ -9,3 +9,9 @@ Ext.application({
     Ext.Viewport.add({ xclass: 'Suoritukset.view.Main' });
   }
 });
+
+
+Ext.onReady(function() {
+  //var button = Ext.get("ext-button-3")
+  //button.fireEvent("tap");
+});

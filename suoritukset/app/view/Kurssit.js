@@ -1,6 +1,7 @@
+var selectedCourseCode = ""
 Ext.define('Suoritukset.view.Kurssit', {
   extend: 'Ext.dataview.List',
-	require: ['Suoritukset.view.Kurssi'],
+  require: ['Suoritukset.view.Kurssi'],
   config: {
       ui: 'round',
       grouped: true,
@@ -15,7 +16,8 @@ Ext.define('Suoritukset.view.Kurssit', {
       store: 'kurssitstore',
       listeners:{
         painted: suodataLista,
-      	itemtap: function(record, index){
+        itemtap: function(me, index, target, record, e, eOpts){
+          selectedCourseCode = record.get('code');
           Ext.Viewport.add({xtype:'kurssiDialog'});
         }
       }
