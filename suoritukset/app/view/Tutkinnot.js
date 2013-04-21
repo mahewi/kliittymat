@@ -34,6 +34,9 @@ Ext.define('Suoritukset.view.Tutkinnot', {
           }
           ]
         });
+        
+
+
         fs.add(toolbar)
 
 
@@ -72,11 +75,15 @@ Ext.define('Suoritukset.view.Tutkinnot', {
         }
 
 
+fs.add(Ext.create('Ext.Container',{
+            html: '<br />Listaa opiskelijan suorittamat kurssit valitusta tutkinnosta. Oletuksena listataan kaikki opiskelijan suorittamat kurssit.'
+          }))
 
         Ext.Viewport.add(new Suoritukset.view.Tutkinto({items:fs}));
       }
     },
-    items: {
+    items: [
+    {
       xtype: 'fieldset',
       id: 'kandiLista',
       docked: 'top',
@@ -119,7 +126,14 @@ Ext.define('Suoritukset.view.Tutkinnot', {
           }
         }
       }
-    }
+    },
+        {
+          xtype: 'container',
+          docked: 'top',
+          id: 'tyhjateksti',
+     html: '<br /> Valitse mink&auml; kandirakenteen opiskelijat haetaan.' 
+    },
+    ]
   }
 });
 

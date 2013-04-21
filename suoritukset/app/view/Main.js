@@ -18,6 +18,9 @@ Ext.define('Suoritukset.view.Main', {
       },
       items: [
         {
+          html: '<br /> Listaa kurssit ja vuosittaiset opiskelijam&auml;&auml;r&auml;t hakuehtojen mukaan.'
+        },
+        {
         xtype: 'button',
         text: 'Kurssit',
         maxWidth: '1000px',
@@ -30,7 +33,11 @@ Ext.define('Suoritukset.view.Main', {
             Ext.getCmp('naviview').push(new Ext.create('Suoritukset.view.Kurssit'));
           }
         }
-      }, {
+      },{
+        html: '<br /> Listaa opiskelijat jotka suorittavat valittua tutkintoa ja t&auml;ytt&auml;v&auml;t hakuehtojen kriteerit.'
+      },
+
+       {
         xtype: 'button',
         text: 'Tutkinnot',
         maxWidth: '1000px',
