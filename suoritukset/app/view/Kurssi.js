@@ -30,6 +30,7 @@ Ext.define('Suoritukset.view.Kurssi', {
         listeners: {
           painted: function() {
             var suoritusStore = Ext.getStore('suoritusstore')
+            suoritusStore.clearFilter()
             suoritusStore.filter('code',selectedCourseCode)
             yearlyStudents = {}
             for(var i = 0; i < suoritusStore.getCount(); i++){
